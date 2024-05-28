@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using teamProject.Models;
 
 namespace teamProject.Data
 {
@@ -9,5 +10,7 @@ namespace teamProject.Data
             : base(options)
         {
         }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
