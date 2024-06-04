@@ -1,0 +1,42 @@
+﻿@page
+@model teamProject.Pages.Category.AddOrEditModel
+
+@{
+    ViewData["PageTitle"] = Model.Category.CategoryId == 0 ? "Create a new category" : "Edit category";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5" style="background-color:#212b36">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Category.CategoryId" />
+                <div class="mb-3">
+                    <div class='e-btn-group custom-rbt-group'>
+                        <input type="radio" id="radioleft" name="Category.Type" value="Expense" checked="@(Model.Category.Type=="Expense")" />
+                        <label class="e-btn" for="radioleft">Expense</label>
+                        <input type="radio" id="radiomiddle" name="Category.Type" value="Income" checked="@(Model.Category.Type=="Income")" />
+                        <label class="e-btn" for="radiomiddle">Income</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="title" placeholder="Title" ejs-for="Category.Title" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Category.Title" class="text-danger fs-6"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="icon" placeholder="Icon" ejs-for="Category.Icon" floatLabelType="Always"></ejs-textbox>
+                </div>
+                <ejs-button id="submit" type="submit" content="Submit" cssClass="e-success"></ejs-button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-shapes fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
