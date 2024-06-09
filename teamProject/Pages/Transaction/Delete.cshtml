@@ -1,0 +1,9 @@
+﻿@page "{id:int}"
+@model teamProject.Pages.Transaction.DeleteModel
+@{
+    ViewData["Title"] = "Delete Transaction";
+}
+<form method="post">
+    <input type="hidden" asp-for="Transaction.TransactionId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
