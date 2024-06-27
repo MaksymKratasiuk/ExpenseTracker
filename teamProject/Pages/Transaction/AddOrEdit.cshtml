@@ -16,6 +16,7 @@
                                     placeholder="Date" floatLabelType="Always"
                                     format="MMM-dd-yy"></ejs-datepicker>
                 </div>
+
                 <div class="mb-3">
                     <ejs-dropdownlist id="ddlCategory" ejs-for="Transaction.CategoryId"
                                       dataSource="@Model.Categories" placeholder="Category"
@@ -25,6 +26,7 @@
                     </ejs-dropdownlist>
                     <span asp-validation-for="Transaction.CategoryId" class="text-danger fs-6"></span>
                 </div>
+
                 <div class="mb-3">
                     <ejs-numerictextbox id="amount" ejs-for="Transaction.Amount"
                                         placeholder="Amount" floatLabelType="Always"

@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using teamProject.Data;
 using teamProject.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
 
 namespace teamProject.Pages.Dashboard
 {
@@ -72,7 +76,7 @@ namespace teamProject.Pages.Dashboard
                 .GroupBy(j => j.Date)
                 .Select(k => new SplineChartData()
                 {
-                    day = k.First().Date.ToString("dd-MMM"),
+                    day = k.Key.ToString("dd-MMM"),
                     income = k.Sum(l => l.Amount)
                 })
                 .ToList();
@@ -83,7 +87,7 @@ namespace teamProject.Pages.Dashboard
                 .GroupBy(j => j.Date)
                 .Select(k => new SplineChartData()
                 {
-                    day = k.First().Date.ToString("dd-MMM"),
+                    day = k.Key.ToString("dd-MMM"),
                     expense = k.Sum(l => l.Amount)
                 })
                 .ToList();
@@ -101,8 +105,8 @@ namespace teamProject.Pages.Dashboard
                                select new
                                {
                                    day = day,
-                                   income = income == null ? 0 : income.income,
-                                   expense = expense == null ? 0 : expense.expense,
+                                   income = income?.income ?? 0,
+                                   expense = expense?.expense ?? 0,
                                }).ToList<object>();
 
             // Recent Transactions
