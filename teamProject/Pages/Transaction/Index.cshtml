@@ -34,8 +34,6 @@
             <i class="fa-solid fa-pen fa-lg"></i>
         </a>
         <form action="/Transactions/Delete/${TransactionId}" method="post">
-@*             <input name="__RequestVerificationToken" type="hidden" value='@Antiforgery.GetTokens(HttpContext).RequestToken' />
- *@
             @Html.AntiForgeryToken()
              <button type="submit" class="btn btn-sm btn-link no-a-decoration"
             onclick="return confirm(&quot;Are sure to delete this record?&quot;)">
