@@ -2,8 +2,23 @@
 @model teamProject.Pages.Transaction.DeleteModel
 @{
     ViewData["Title"] = "Delete Transaction";
+    ViewData["PageTitle"] = "Delete Transaction";
 }
+
+<h2>Are you sure you want to delete this transaction?</h2>
+
+<div>
+    <h4>@Model.Transaction.CategoryTitleWithIcon</h4>
+    <div>
+        <p>Date: @Model.Transaction.Date.ToString("MMM-dd-yy")</p>
+        <p>Amount: @Model.Transaction.Amount.ToString("C")</p>
+        <p>Note: @Model.Transaction.Note</p>
+    </div>
+</div>
+
 <form method="post">
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Transaction.TransactionId" />
     <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
 </form>

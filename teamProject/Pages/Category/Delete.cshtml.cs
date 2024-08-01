@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using teamProject.Data;
-using teamProject.Models;
 
-namespace teamProject.Pages.Transaction
+namespace teamProject.Pages.Category
 {
     public class DeleteModel : PageModel
     {
@@ -16,33 +15,34 @@ namespace teamProject.Pages.Transaction
         }
 
         [BindProperty]
-        public teamProject.Models.Transaction Transaction { get; set; }
+        public teamProject.Models.Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Transaction = await _context.Transactions
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.TransactionId == id);
+            Category = await _context.Categories.FindAsync(id);
 
-            if (Transaction == null)
+            if (Category == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (Category == null)
             {
                 return NotFound();
             }
 
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(int id)
-        {
-            Transaction = await _context.Transactions.FindAsync(id);
-
-            if (Transaction != null)
+            var category = await _context.Categories.FindAsync(Category.CategoryId);
+            if (category != null)
             {
-                _context.Transactions.Remove(Transaction);
+                _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("Index");
         }
     }
 }

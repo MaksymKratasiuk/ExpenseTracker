@@ -1,0 +1,41 @@
+﻿@page "{id}"
+@model teamProject.Pages.Category.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5" style="background-color:#212b36">
+            <h3>Are you sure you want to delete this category?</h3>
+            <div>
+                <dl class="row">
+                    <dt class="col-sm-3">Title</dt>
+                    <dd class="col-sm-9">@Model.Category.Title</dd>
+                    <dt class="col-sm-3">Type</dt>
+                    <dd class="col-sm-9">@Model.Category.Type</dd>
+                    <dt class="col-sm-3">Icon</dt>
+                    <dd class="col-sm-9">@Model.Category.Icon</dd>
+                </dl>
+            </div>
+            <form method="post">
+                <input type="hidden" asp-for="Category.CategoryId" />
+                <div class="form-group">
+                    <ejs-button id="confirm" type="submit" content="Delete" cssClass="e-danger"></ejs-button>
+                    <a class="btn btn-secondary" href="/Category/Index">Cancel</a>
+                </div>
+                @Html.AntiForgeryToken()
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-shapes fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
