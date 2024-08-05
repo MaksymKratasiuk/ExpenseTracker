@@ -46,6 +46,7 @@
 </div>
 
 <!-- Doughnut and Spline Chart -->
+<!-- Doughnut and Spline Chart -->
 <div class="row mb-4">
     <!-- Expense By Category -->
     <div class="col-md-4">
@@ -53,15 +54,15 @@
             <div class="p-4">
                 <h5 class="fw-bold">Expense By Category</h5>
             </div>
-            <ejs-accumulationchart id="doughnutchart" enableSmartLabels="true" background="#1a222b" dataSource="@Model.DoughnutChartData">
+            <ejs-accumulationchart id="doughnutchart" enableSmartLabels="true" background="var(--widget-background-color)" dataSource="@Model.DoughnutChartData">
                 <e-accumulation-series-collection>
                     <e-accumulation-series xName="categoryTitleWithIcon" yName="amount">
                     </e-accumulation-series>
                 </e-accumulation-series-collection>
                 <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
-                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                    <e-legendsettings-textstyle color="var(--text-color)" size="1rem"></e-legendsettings-textstyle>
                 </e-accumulationchart-legendsettings>
-                <e-accumulationchart-tooltipsettings enable="true"></e-accumulationchart-tooltipsettings>
+                <e-accumulationchart-tooltipsettings enable="true" ></e-accumulationchart-tooltipsettings>
             </ejs-accumulationchart>
         </div>
     </div>
@@ -71,13 +72,13 @@
             <div class="p-4">
                 <h5 class="fw-bold">Income vs Expense</h5>
             </div>
-            <ejs-chart id="spline-chart" background="#1a222b" palettes=@(new string[]{"#54ffa9","#ffe91a"}) dataSource="@Model.SplineChartData">
+            <ejs-chart id="spline-chart" background="var(--widget-background-color)" palettes=@(new string[]{"#54ffa9","#ffe91a"}) dataSource="@Model.SplineChartData">
                 <e-chart-primaryxaxis valueType="Category">
-                    <e-majorgridlines width="0"></e-majorgridlines>
+                    <e-majorgridlines width="0" color="var(--grid-line-color)"></e-majorgridlines>
                     <e-majorticklines width="0"></e-majorticklines>
                 </e-chart-primaryxaxis>
                 <e-chart-primaryyaxis>
-                    <e-majorgridlines width="1" color="#32414d" dashArray="3,5"></e-majorgridlines>
+                    <e-majorgridlines width="1" color="var(--grid-line-color)" dashArray="3,5"></e-majorgridlines>
                     <e-majorticklines width="0"></e-majorticklines>
                     <e-linestyle width="0"></e-linestyle>
                 </e-chart-primaryyaxis>
@@ -85,17 +86,18 @@
                     <e-chartarea-border width="0"></e-chartarea-border>
                 </e-chart-chartarea>
                 <e-series-collection>
-                    <e-series type="Spline" xName="day" yName="income" name="Income"></e-series>
-                    <e-series type="Spline" xName="day" yName="expense" name="Expense"></e-series>
+                    <e-series type="Spline" xName="day" yName="income" name="Income" color="var(--income-color)"></e-series>
+                    <e-series type="Spline" xName="day" yName="expense" name="Expense" color="var(--expense-color)"></e-series>
                 </e-series-collection>
                 <e-chart-legendsettings position="Top" alignment="Far" toggleVisibility="false">
-                    <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                    <e-legendsettings-textstyle color="var(--text-color)" size="1rem"></e-legendsettings-textstyle>
                 </e-chart-legendsettings>
                 <e-chart-tooltipsettings enable="true" shared="true"></e-chart-tooltipsettings>
             </ejs-chart>
         </div>
     </div>
 </div>
+
 
 <!-- Recent Transactions -->
 <div class="row">

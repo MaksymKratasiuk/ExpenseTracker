@@ -67,6 +67,15 @@
             </div>
         </div>
 
+        <!-- Додайте перемикач теми тут -->
+        <div class="theme-switcher">
+            <label class="switch">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider round"></span>
+            </label>
+            <span id="theme-label" class="theme-label">Темна тема</span>
+        </div>
+
         <ejs-menu id="menu"
                   items="menuItems"
                   orientation="Vertical"
@@ -76,10 +85,58 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        dockBar = document.getElementById('sidebar').ej2_instances[0];
-        document.getElementById('sidebar-toggler').onclick = function () {
-            dockBar.toggle();
-        };
+        const toggleSwitch = document.querySelector('#theme-switch');
+        const themeLabel = document.querySelector('#theme-label');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        // Встановити поточну тему
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        if (currentTheme === 'light') {
+            toggleSwitch.checked = true;
+            themeLabel.textContent = "Світла тема";
+        }
+
+        toggleSwitch.addEventListener('change', function (event) {
+            const theme = event.target.checked ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeLabel.textContent = theme === 'light' ? "Світла тема" : "Темна тема";
+
+            // Оновити стиль графіків після зміни теми
+            updateCharts();
+        });
+
+        // Функція для оновлення стилю графіків
+        function updateCharts() {
+            // Отримати інстанції графіків
+            const doughnutChart = document.getElementById('doughnutchart').ej2_instances[0];
+            const splineChart = document.getElementById('spline-chart').ej2_instances[0];
+
+            // Оновити фон для кожного графіку
+            const newBackgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--widget-background-color');
+            const newTextColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+            const newGridLineColor = getComputedStyle(document.documentElement).getPropertyValue('--grid-line-color');
+
+            doughnutChart.background = newBackgroundColor;
+            doughnutChart.legendSettings.textStyle.color = newTextColor;
+            doughnutChart.tooltipSettings.textStyle.color = newTextColor;
+
+            splineChart.background = newBackgroundColor;
+            splineChart.legendSettings.textStyle.color = newTextColor;
+            splineChart.primaryYAxis.majorGridLines.color = newGridLineColor;
+            splineChart.primaryXAxis.majorGridLines.color = newGridLineColor;
+            splineChart.primaryYAxis.labelStyle.color = newTextColor;
+            splineChart.primaryXAxis.labelStyle.color = newTextColor;
+
+            // Оновити графіки
+            doughnutChart.refresh();
+            splineChart.refresh();
+        }
+
+        // Викликати функцію при завантаженні сторінки
+        updateCharts();
     });
+
 
 </script>
